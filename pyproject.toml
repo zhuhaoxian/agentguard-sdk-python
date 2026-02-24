@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agentguard-zhx"
-version = "1.0.0"
+version = "0.0.1"
 description = "Python SDK for AgentGuard - AI Agent governance and monitoring platform"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-    {name = "AgentGuard Team", email = "support@agentguard.io"}
+    {name = "zhuhaoxian", email = "zhx_stack@163.com"}
 ]
 keywords = ["ai", "agent", "governance", "monitoring", "llm", "openai"]
 classifiers = [
@@ -41,6 +41,6 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/agentguard/agentguard-sdk-python"
-Documentation = "https://docs.agentguard.io"
-Repository = "https://github.com/agentguard/agentguard-sdk-python"
+Homepage = "https://github.com/zhuhaoxian/agentguard-sdk-python"
+Documentation = "https://github.com/zhuhaoxian/agentguard-sdk-python/blob/main/README.md"
+Repository = "https://github.com/zhuhaoxian/agentguard-sdk-python"
