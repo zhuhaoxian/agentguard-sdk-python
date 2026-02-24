@@ -1,0 +1,8 @@
+"""Setup script for AgentGuard Python SDK"""
+
+from setuptools import setup, find_packages
+
+setup(
+    packages=find_packages(exclude=["tests", "examples"]),
+    include_package_data=True,
+)
