@@ -5,8 +5,9 @@ Python SDK for integrating with AgentGuard - AI Agent governance and monitoring 
 ## Features
 
 - ✅ **Zero Code Changes** - Drop-in replacement for OpenAI client
+- ✅ **Unified Client** - One client for all features (LLM + Approvals)
 - ✅ **Transparent Proxy** - All requests routed through AgentGuard
-- ✅ **Webhook Support** - Real-time approval notifications
+- ✅ **Integrated Approval Management** - Built-in approval status query and submission
 - ✅ **Business API Interception** - Monitor all API calls
 - ✅ **Cost Tracking** - Automatic cost monitoring
 - ✅ **Policy Enforcement** - Apply governance policies
@@ -41,6 +42,34 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
+### Approval Status Query
+
+Query approval status using integrated approval management:
+
+```python
+from agentguard import AgentGuardOpenAI
+
+# One client for everything
+client = AgentGuardOpenAI(
+    agentguard_url="http://localhost:8080",
+    agent_api_key="ag_xxx"
+)
+
+# LLM calls
+response = client.chat.completions.create(...)
+
+# Approval management (integrated)
+status = client.approvals.get_status("approval_id")
+
+if status.is_approved:
+    print("Approved:", status.execution_result)
+elif status.is_rejected:
+    print("Rejected:", status.remark)
+
+# Submit approval reason
+client.approvals.submit_reason("approval_id", "Need to delete test data")
+```
+
 ### Environment Variables
 
 ```python
@@ -52,30 +81,6 @@ export AGENTGUARD_API_KEY="ag_xxx"
 from agentguard import AgentGuardOpenAI
 
 client = AgentGuardOpenAI()  # Loads from environment
-```
-
-### Webhook Approval
-
-```python
-import threading
-from agentguard import AgentGuardOpenAI, WebhookServer
-
-# Start webhook server
-webhook_server = WebhookServer(port=5000, secret="your-secret")
-webhook_thread = threading.Thread(target=webhook_server.start, daemon=True)
-webhook_thread.start()
-
-# Use client as normal
-client = AgentGuardOpenAI(
-    agentguard_url="http://localhost:8080",
-    agent_api_key="ag_xxx"
-)
-
-# Approvals are handled automatically via webhooks
-response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[{"role": "user", "content": "High-risk operation"}]
-)
 ```
 
 ### Business API Interception
@@ -104,24 +109,10 @@ from agentguard import AgentGuardConfig, AgentGuardOpenAI
 
 config = AgentGuardConfig(
     agentguard_url="http://localhost:8080",
-    agent_api_key="ag_xxx",
-    webhook_url="http://your-server.com/webhook",
-    webhook_secret="your-secret"
+    agent_api_key="ag_xxx"
 )
 
 client = AgentGuardOpenAI(config=config)
-```
-
-### WebhookServer Options
-
-```python
-from agentguard import WebhookServer
-
-server = WebhookServer(
-    port=5000,              # Port to listen on
-    secret="your-secret",   # HMAC signature secret
-    host="0.0.0.0"         # Host to bind to
-)
 ```
 
 ## Examples
@@ -129,28 +120,31 @@ server = WebhookServer(
 See the `examples/` directory for more examples:
 
 - `basic_usage.py` - Basic OpenAI integration
-- `webhook_approval.py` - Webhook-based approval handling
+- `approval_polling.py` - Query approval status
 - `business_api.py` - Business API interception
 
 ## API Reference
 
 ### AgentGuardOpenAI
 
-Drop-in replacement for OpenAI client that routes requests through AgentGuard.
+Drop-in replacement for OpenAI client with integrated approval management.
 
 **Parameters:**
 - `agentguard_url` (str): AgentGuard server URL
 - `agent_api_key` (str): AgentGuard API key
 - `config` (AgentGuardConfig, optional): Configuration object
 
-### WebhookServer
+**Integrated Approval Management:**
 
-Lightweight webhook server for receiving approval notifications.
+Access via `client.approvals`:
+- `get_status(approval_id)` - Query approval status by ID
+- `submit_reason(approval_id, reason)` - Submit approval reason/justification
 
-**Methods:**
-- `start()` - Start the server (blocking)
-- `register_callback(approval_id, callback)` - Register approval callback
-- `wait_for_approval(approval_id, timeout)` - Wait for approval with timeout
+**Returns:** `ApprovalStatusResponse` with:
+- `status` - ApprovalStatus enum (PENDING/APPROVED/REJECTED/EXPIRED)
+- `execution_result` - Result if approved and executed
+- `remark` - Rejection reason if rejected
+- `is_pending`, `is_approved`, `is_rejected`, `is_expired` - Helper properties
 
 ### enable_agentguard()
 
@@ -183,6 +177,6 @@ MIT License
 
 ## Support
 
-- Documentation: https://docs.agentguard.io
-- Issues: https://github.com/agentguard/agentguard-sdk-python/issues
-- Email: support@agentguard.io
+- Documentation: https://github.com/zhuhaoxian/agentguard-sdk-python/blob/main/README.md
+- Issues: https://github.com/zhuhaoxian/agentguard-sdk-python/issues
+- Email: zhx_stack@163.com
