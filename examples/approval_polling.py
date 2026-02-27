@@ -10,7 +10,7 @@ This demonstrates the approval flow:
 6. Gets approval result and continues execution
 """
 
-from agentguard import ApprovalClient
+from agentguard_zhx import ApprovalClient
 
 # Initialize approval client
 approval_client = ApprovalClient(

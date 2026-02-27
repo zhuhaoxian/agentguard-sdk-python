@@ -5,7 +5,7 @@ This example shows how to use AgentGuardOpenAI to make LLM API calls
 through AgentGuard for governance and monitoring.
 """
 
-from agentguard import AgentGuardOpenAI
+from agentguard_zhx import AgentGuardOpenAI
 
 # Initialize AgentGuard OpenAI client
 client = AgentGuardOpenAI(

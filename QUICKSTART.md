@@ -9,7 +9,7 @@ pip install agentguard-zhx
 ## 使用（极简版）
 
 ```python
-from agentguard import AgentGuardOpenAI
+from agentguard_zhx import AgentGuardOpenAI
 
 # 1. 初始化（一个客户端，所有功能）
 client = AgentGuardOpenAI(

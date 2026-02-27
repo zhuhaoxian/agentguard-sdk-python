@@ -4,7 +4,7 @@ Business API interception example
 This example shows how to intercept business API calls using the requests library.
 """
 
-from agentguard import enable_agentguard
+from agentguard_zhx import enable_agentguard
 import requests
 
 # Enable AgentGuard interception for specific API patterns

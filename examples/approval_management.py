@@ -3,7 +3,7 @@ AgentGuard SDK 审批功能示例
 
 演示如何使用 ApprovalClient 提交审批理由和查询审批状态
 """
-from agentguard import ApprovalClient
+from agentguard_zhx import ApprovalClient
 
 # 初始化审批客户端
 approval_client = ApprovalClient(

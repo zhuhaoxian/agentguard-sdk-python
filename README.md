@@ -25,7 +25,7 @@ pip install agentguard-zhx
 ### Basic Usage
 
 ```python
-from agentguard import AgentGuardOpenAI
+from agentguard_zhx import AgentGuardOpenAI
 
 # Initialize client
 client = AgentGuardOpenAI(
@@ -47,7 +47,7 @@ print(response.choices[0].message.content)
 Query approval status using integrated approval management:
 
 ```python
-from agentguard import AgentGuardOpenAI
+from agentguard_zhx import AgentGuardOpenAI
 
 # One client for everything
 client = AgentGuardOpenAI(
@@ -78,7 +78,7 @@ export AGENTGUARD_URL="http://localhost:8080"
 export AGENTGUARD_API_KEY="ag_xxx"
 
 # Use without explicit configuration
-from agentguard import AgentGuardOpenAI
+from agentguard_zhx import AgentGuardOpenAI
 
 client = AgentGuardOpenAI()  # Loads from environment
 ```
@@ -86,7 +86,7 @@ client = AgentGuardOpenAI()  # Loads from environment
 ### Business API Interception
 
 ```python
-from agentguard import enable_agentguard
+from agentguard_zhx import enable_agentguard
 import requests
 
 # Enable global interception
@@ -105,7 +105,7 @@ response = requests.get("https://api.example.com/data")
 ### AgentGuardConfig
 
 ```python
-from agentguard import AgentGuardConfig, AgentGuardOpenAI
+from agentguard_zhx import AgentGuardConfig, AgentGuardOpenAI
 
 config = AgentGuardConfig(
     agentguard_url="http://localhost:8080",
