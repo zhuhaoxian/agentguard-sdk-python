@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agentguard-zhx"
-version = "0.0.2"
+version = "0.0.3"
 description = "Python SDK for AgentGuard - AI Agent governance and monitoring platform"
 readme = "README.md"
 requires-python = ">=3.8"
