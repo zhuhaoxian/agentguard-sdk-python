@@ -4,7 +4,7 @@ AgentGuard Python SDK
 A Python SDK for integrating with AgentGuard - AI Agent governance and monitoring platform.
 """
 
-__version__ = "0.0.2"
+__version__ = "0.0.4"
 
 from .client import AgentGuardOpenAI
 from .config import AgentGuardConfig
